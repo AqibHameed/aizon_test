@@ -1,6 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+var auth = require('./app/routes/auth.routes')
+var solution = require('./app/routes/solution.routes')
 const app = express();
 var corsOptions = {
   origin: "http://localhost:8081"
@@ -13,7 +15,9 @@ app.use(express.urlencoded({ extended: true }));
 const db = require("./app/models");
 db.sequelize.sync();
 // routes
-require('./app/routes/auth.routes')(app);
+app.use('/api/auth', auth);
+app.use('/api/solutions', solution);
+//require('./app/routes/solution.routes')(app);
 // simple route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to Aizon application." });
