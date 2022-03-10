@@ -1,5 +1,7 @@
 const { authJwt } = require("../middlewares");
+const { verifySolution } = require("../middlewares");
 const controller = require("../controllers/solutions.controller");
+const screen = require('./screen.routes')
 var express = require('express');
 var router = express.Router();
 
@@ -18,24 +20,31 @@ router.post(
     controller.create
   );
 router.get(
-  "/:id",
+  "/:solutionId",
   [
     authJwt.verifyToken
   ],
   controller.show
 );  
 router.put(
-  "/:id",
+  "/:solutionId",
   [
-    authJwt.verifyToken
+    authJwt.verifyToken,
+    verifySolution.checkSolutionExist
   ],
   controller.update
 ); 
 router.delete(
-  "/:id",
+  "/:solutionId",
   [
-    authJwt.verifyToken
+    authJwt.verifyToken,
+    verifySolution.checkSolutionExist
   ],
   controller.delete
 ); 
+//nest the routes
+router.use('/:solutionId/screens', function(req, res, next) {
+  req.solutionId = req.params.solutionId;
+  next()
+}, screen);
  module.exports = router;

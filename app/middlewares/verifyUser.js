@@ -11,7 +11,7 @@ checkUserexist = (req, res, next) => {
             next();
     }else{
           res.status(400).send({
-            message: "Failed! Username is not exist!"
+            message: "Failed! User is not exist!"
           });
           return;
     }

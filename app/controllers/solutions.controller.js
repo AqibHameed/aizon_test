@@ -30,7 +30,7 @@ exports.create = (req, res) => {
 
 exports.show = (req, res) => {
     // find Solution on the basis of the Id
-    Solution.findByPk(req.params.id)
+    Solution.findByPk(req.params.solutionId)
       .then(solution => {
             if(!solution) {
                 return res.status(404).send({
@@ -51,50 +51,28 @@ exports.show = (req, res) => {
             message: "Solution name can not be empty"
         });
     }
-    Solution.findByPk(req.params.id)
-    .then(solution => {
-          if(!solution) {
-              return res.status(404).send({
-                  message: "solution not found with id " + req.params.id
-              });            
-          }
-          Solution.update({ name: req.body.name },
-            { where: {id: req.params.id}
-            })
-            .then(function() {
-                    res.send({ message: "Solution was updated successfully!" });
-            })
-            .catch(err => {
-                res.status(500).send({ message: err.message });
-            }); 
-    })
-    .catch(err => {
-      res.status(500).send({ message: err.message });
-    });
+    Solution.update({ name: req.body.name },
+      { where: {id: req.params.solutionId}
+      })
+      .then(function() {
+              res.send({ message: "Solution was updated successfully!" });
+      })
+      .catch(err => {
+          res.status(500).send({ message: err.message });
+      });
     
   };
   exports.delete = (req, res) => {
     // delete Solution on the basis of the Id
-    Solution.findByPk(req.params.id)
-      .then(solution => {
-            if(!solution) {
-                return res.status(404).send({
-                    message: "solution not found with id " + req.params.id
-                });            
-            }
-            Solution.destroy({ 
-                where: {
-                    id: req.params.id
-                }
-            })
-            .then(function() {
-                    res.send({ message: "Solution was deleted successfully!" });
-            })
-            .catch(err => {
-                res.status(500).send({ message: err.message });
-            });
-      })
-      .catch(err => {
+    Solution.destroy({ 
+      where: {
+          id: req.params.solutionId
+      }
+    })
+    .then(function() {
+            res.send({ message: "Solution was deleted successfully!" });
+    })
+    .catch(err => {
         res.status(500).send({ message: err.message });
-      });
+    });
   };
