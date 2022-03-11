@@ -1,4 +1,5 @@
 const db = require("../models");
+const {uploadFile} = require("../services/upload.S3.service");
 const Widget = db.widget
 exports.index = (req, res) => {
     // Save Widget to Database
@@ -13,20 +14,20 @@ exports.index = (req, res) => {
       });
   };
 
-exports.create = (req, res) => {
-  // Save Screen to Database
+exports.create =  (req, res) => {
+  // Save widget to Database
   const widget = new Widget({
-    name: req.body.name
-    // imageName
-    // imageUrl
-    // bucketName
-    // contentType
-    //Id: req.solutionId
+    name: req.body.name,
+    imageName: req.file.originalname,
+    imageUrl:  req.file.location,
+    bucketName: req.file.bucket,
+    key: req.file.key,
+    contentType: req.file.mimetype
   });
   widget.save()
     .then(widget => {
         widget.setScreens([req.screenId]).then(() => {
-            res.send({ message: "Screen was created successfully!" });
+            res.send({ message: "Widget was created successfully!" });
           });
     })
     .catch(err => {
@@ -54,14 +55,14 @@ exports.show = (req, res) => {
     // update Widget on the basis of the Id
     if(!req.body.name) {
         return res.status(400).send({
-            message: "Screen name can not be empty"
+            message: "Widget name can not be empty"
         });
     }
     Widget.findByPk(req.params.widgetId)
       .then(widget => {
             if(!widget) {
                 return res.status(404).send({
-                    message: "widget not found with id " + req.params.widgetId
+                    message: "Widget not found with id " + req.params.widgetId
                 });            
             }
             widget.update({ name: req.body.name }

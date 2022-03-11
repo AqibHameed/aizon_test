@@ -14,6 +14,9 @@ module.exports = (sequelize, Sequelize) => {
       bucketName: {
         type: Sequelize.STRING
       },
+      key: {
+        type: Sequelize.STRING
+      },
       contentType: {
         type: Sequelize.STRING
       }
