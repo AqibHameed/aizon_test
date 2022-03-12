@@ -1,8 +1,8 @@
-require('dotenv').config();
 const fs = require('fs')
 const AWS = require('aws-sdk')
 var multer = require('multer')
 var multerS3 = require('multer-s3')
+require('dotenv').config();
 
 AWS_BUCKET_NAME = process.env.AWS_BUCKET_NAME
 AWS_BUCKET_REGION = process.env.AWS_BUCKET_REGION
