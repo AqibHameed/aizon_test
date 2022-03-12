@@ -6,9 +6,12 @@
   "scripts": {
     "start": "nodemon server.js",
     "dev": "export NODE_ENV=dev && nodemon server.js",
-    "test": "export NODE_ENV=test && jest --watch"
+    "test": "export NODE_ENV=test &&  jest --watch"
   },
   "jest": {
+    "setupFiles": [
+      "<rootDir>/app/config/db.config.js"
+    ],
     "testEnvironment": "node"
   },
   "keywords": [],

@@ -16,7 +16,6 @@ const sequelize = new Sequelize(
     }
   }
 );
-console.log(process.env.NODE_ENV)
 const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;

@@ -1,4 +1,7 @@
 require('dotenv').config();
+USER= ''
+PASSWORD=''
+DB =''
 if(process.env.NODE_ENV=='dev'){
   USER = process.env.DB_USER
   PASSWORD = process.env.PASSWORD

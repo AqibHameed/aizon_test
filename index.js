@@ -22,9 +22,7 @@ app.use('/api/auth', auth);
 app.use('/api/screens', screen);
 app.use('/api/solutions', solution);
 
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to Aizon application." });
-});
+
 // set port, listen for requests
 // const PORT = process.env.PORT || 8080;
 // app.listen(PORT, () => {
