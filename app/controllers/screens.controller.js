@@ -17,11 +17,14 @@ exports.create = (req, res) => {
   // Save Screen to Database
   const screen = new Screen({
     name: req.body.name,
-    solutionId: req.solutionId
+    solutionId: req.body.solutionId
+    //solutionId: req.solutionId
   });
   screen.save()
     .then(screen => {
-       res.send({ message: "Screen was created successfully!" }); 
+       res.send({ message: "Screen is created successfully!",
+                  data: screen
+       }); 
     })
     .catch(err => {
       res.status(500).send({ message: err.message });
@@ -55,7 +58,7 @@ exports.show = (req, res) => {
       { where: {id: req.params.screenId}
       })
       .then(function() {
-              res.send({ message: "Screen was updated successfully!" });
+              res.send({ message: "Screen is updated successfully!" });
       })
       .catch(err => {
           res.status(500).send({ message: err.message });
@@ -70,7 +73,7 @@ exports.show = (req, res) => {
       }
     })
     .then(function() {
-            res.send({ message: "Screen was deleted successfully!" });
+            res.send({ message: "Screen is deleted successfully!" });
     })
     .catch(err => {
         res.status(500).send({ message: err.message });

@@ -26,8 +26,11 @@ exports.create =  (req, res) => {
   });
   widget.save()
     .then(widget => {
-        widget.setScreens([req.screenId]).then(() => {
-            res.send({ message: "Widget was created successfully!" });
+        //req.screenId
+        widget.setScreens([req.body.screenId]).then(() => {
+            res.send({ message: "Widget is created successfully!",
+                       data: widget
+           });
           });
     })
     .catch(err => {
@@ -70,11 +73,11 @@ exports.show = (req, res) => {
                 )
                 .then(function() {
                         if(req.params.screenId){
-                          widget.setScreens([req.screenId]).then(() => {
-                              res.send({ message: "Widget was created successfully!" });
+                          widget.setScreens([req.body.screenId]).then(() => {
+                              res.send({ message: "Widget and its screen updated successfully" });
                             });
                         }
-                        res.send({ message: "Widget was updated successfully!" });
+                        res.send({ message: "Widget is updated successfully!" });
                 })
                 .catch(err => {
                     res.status(500).send({ message: err.message });

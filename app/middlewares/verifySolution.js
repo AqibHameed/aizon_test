@@ -8,7 +8,7 @@ checkSolutionExist = (req, res, next) => {
             next();
     }else{
           res.status(400).send({
-            message: "Failed! screen not found with id!"
+            message: "Failed! soultion not found with id!"
           });
           return;
     }

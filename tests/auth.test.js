@@ -3,11 +3,11 @@ const app = require('../index.js');
 const db  = require('../app/models/index.js');
 const User = db.user;
 
-// beforeAll(async() =>{
-//    await User.destroy({
-//     where: { username: "aqib23" },
-//   });
-// })
+beforeAll(async() =>{
+   await User.destroy({
+    where: { username: "aqib23" }
+  });
+})
 describe.skip('POST /api/auth/signup', function() {
   it('User is created', async () => {
     await request(app)
@@ -90,7 +90,6 @@ describe.skip('POST /api/auth/signin/', function() {
           .expect('Content-Type', /json/)
           .then(async (response) => {
             // Check the response
-            console.log(response.body)
             expect(response.body.id).not.toBeUndefined();
             expect(response.body.username).toBe("aqib23");
             expect(response.body.email).toBe("aqib@gmail.com");

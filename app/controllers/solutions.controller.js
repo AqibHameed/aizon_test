@@ -21,7 +21,9 @@ exports.create = (req, res) => {
   });
   solution.save()
     .then(solution => {
-       res.send({ message: "Solution was created successfully!" }); 
+       res.send({ message: "Solution was created successfully!",
+                  data: solution
+       }); 
     })
     .catch(err => {
       res.status(500).send({ message: err.message });
@@ -70,7 +72,7 @@ exports.show = (req, res) => {
       }
     })
     .then(function() {
-            res.send({ message: "Solution was deleted successfully!" });
+            res.send({ message: "Solution is deleted successfully!" });
     })
     .catch(err => {
         res.status(500).send({ message: err.message });
