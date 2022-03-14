@@ -74,7 +74,7 @@ exports.show = (req, res) => {
                 .then(function() {
                         if(req.params.screenId){
                           widget.setScreens([req.body.screenId]).then(() => {
-                              res.send({ message: "Widget and its screen updated successfully" });
+                              res.send({ message: "Widget and its screen relationship updated successfully" });
                             });
                         }
                         res.send({ message: "Widget is updated successfully!" });

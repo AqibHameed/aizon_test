@@ -8,6 +8,12 @@ module.exports = (sequelize, Sequelize) => {
       Visibility: {
         type: Sequelize.BOOLEAN
       }
+    },{
+      indexes:[
+       {
+         fields:['solutionId']
+       }
+      ]
     });
     return Screen;
 };

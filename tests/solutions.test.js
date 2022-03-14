@@ -3,7 +3,6 @@ const app = require('../index.js');
 const db  = require('../app/models/index.js');
 const Solution = db.solution;
 
-  console.log("function call")
   var token = null;
   var id = null;
   var userId = null;
@@ -113,7 +112,7 @@ const Solution = db.solution;
 
       describe('GET /api/solutions/:solutionId', function() {
         it('responds with json and Status OK', async () => {
-          console.log("show: ",id)
+    
           await request(app)
                 .get('/api/solutions/'+id)
                 .set('Authorization', 'Bearer '+ token)
@@ -220,7 +219,7 @@ const Solution = db.solution;
                 
             });
 
-            it('Solution is deleted', async () => {
+            it('Solution is delted', async () => {
               await request(app)
                     .delete('/api/solutions/'+id)
                     .set('Authorization', 'Bearer '+ token)

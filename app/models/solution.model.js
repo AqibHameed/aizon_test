@@ -5,6 +5,12 @@ module.exports = (sequelize, Sequelize) => {
         allowNull: false,  
         unique: true
       }
+    },{
+      indexes:[
+       {
+         fields:['userId']
+       }
+      ]
     });
     return Solution;
 };

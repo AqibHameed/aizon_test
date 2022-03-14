@@ -23,14 +23,9 @@ beforeAll(async() =>{
             // store token value
             token = response.body.accessToken
             userId = response.body.id
-            console.log("id:", userId)
-            console.log("fileName: ",`${__dirname}/map.png`)
     
           });
-    
-//   await Widget.destroy({
-//       where: {name: "widget1"}
-//     })
+  
   await request(app)
         .post('/api/solutions/')
         .set('Authorization', 'Bearer '+ token)
@@ -39,7 +34,6 @@ beforeAll(async() =>{
   }).expect(200)
     .then(async (response) => {
     // Check the response
-    console.log(response.body)
     solutionId = response.body.data.id
 
   }); 
@@ -54,7 +48,6 @@ beforeAll(async() =>{
           .expect(200)
           .then(async (response) => {
             // Check the response
-            //console.log(response.body)
             screenId = response.body.data.id
     
           });          
@@ -114,7 +107,7 @@ describe('POST /api/screens/:screenId/widgets/', function() {
               // Check the response
               id = response.body.data.id
               name = response.body.data.name
-              //console.log(response.body)
+  
               expect(response.body.message).toBe("Widget is created successfully!");
               expect(response.body.data.name).toBe("widget1");
               expect(response.body.data.imageName).toBe("aizon.png");
@@ -127,7 +120,6 @@ describe('POST /api/screens/:screenId/widgets/', function() {
 
 describe('GET /api/screens/:screenId/widgets/:widgetsId', function() {
       it('responds with json and Status OK', async () => {
-        console.log("show: ",id)
         await request(app)
               .get('/api/screens/'+screenId+'/widgets/'+id)
               .set('Authorization', 'Bearer '+ token)
@@ -195,25 +187,5 @@ describe('PUT /api/screens/:screenId/widgets/:widgetsId', function() {
                 });
               
           });
-        
-    });
-
-describe.skip('DELETE /api/solutions/:solutionId/screens/:screenId', function() {
-  
-          it('Screen is deleted', async () => {
-            await request(app)
-                  .delete('/api/solutions/'+solutionId+'/screens/'+id)
-                  .set('Authorization', 'Bearer '+ token)
-                  .expect(200)
-                  .expect('Content-Type', /json/)
-                  .then( response => {
-                    // Check the response
-                    //console.log(response.body)
-                    expect(response.body.message).toBe("Screen is deleted successfully!");
-            
-            
-                  });
-                
-            });
         
     });

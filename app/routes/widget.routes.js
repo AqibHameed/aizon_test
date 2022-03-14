@@ -3,6 +3,7 @@ const { verifyWidget } = require("../middlewares");
 const controller = require("../controllers/widgets.controller");
 var express = require('express');
 const {uploadFile} = require("../services/upload.S3.service");
+const deleteFile = require("../services/deleteFile.S3.service");
 var router = express.Router();
 
 router.get(
@@ -39,7 +40,8 @@ router.delete(
   "/:widgetId",
   [
     authJwt.verifyToken,
-    verifyWidget.checkWidgetExist
+    verifyWidget.checkWidgetExist,
+    deleteFile.s3FileDeleted
   ],
   controller.delete
 ); 

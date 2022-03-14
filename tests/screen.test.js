@@ -21,7 +21,6 @@ beforeAll(async() =>{
             // store token value
             token = response.body.accessToken
             userId = response.body.id
-            console.log("id:", userId)
     
           });
     
@@ -38,7 +37,6 @@ beforeAll(async() =>{
           .expect(200)
           .then(async (response) => {
             // Check the response
-            //console.log(response.body)
             solutionId = response.body.data.id
     
           });    
@@ -93,7 +91,6 @@ describe('GET /api/solutions/:solutionId/screens/', function() {
             .expect('Content-Type', /json/)
             .then(async (response) => {
               // Check the response
-              //console.log(response.body)
               id = response.body.data.id
               name = response.body.data.name
               expect(response.body.message).toBe("Screen is created successfully!");
@@ -105,7 +102,6 @@ describe('GET /api/solutions/:solutionId/screens/', function() {
 
     describe('GET /api/solutions/:solutionId/screens/:screenId', function() {
       it('responds with json and Status OK', async () => {
-        console.log("show: ",id)
         await request(app)
               .get('/api/solutions/'+solutionId+'/screens/'+id)
               .set('Authorization', 'Bearer '+ token)
@@ -186,7 +182,6 @@ describe('GET /api/solutions/:solutionId/screens/', function() {
                   .expect('Content-Type', /json/)
                   .then( response => {
                     // Check the response
-                    //console.log(response.body)
                     expect(response.body.message).toBe("Screen is deleted successfully!");
             
             
