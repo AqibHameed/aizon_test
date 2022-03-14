@@ -1,21 +1,38 @@
 const db = require("../models");
 const {uploadFile} = require("../services/upload.S3.service");
 const Widget = db.widget
+const Screen = db.screen
 exports.index = (req, res) => {
-    // Save Widget to Database
-    Widget.findAll()
-      .then(widgets => {
-        res.status(200).send({
-            widgets: widgets
-         }); 
-      })
-      .catch(err => {
-        res.status(500).send({ message: err.message });
-      });
+    // find Screen on the basis of the Id
+    Screen.findByPk(req.screenId)
+    .then(screen => {
+          if(screen) {
+              // Fetch all Widget from Database
+              screen.getWidgets()
+                .then(widgets => {
+                  res.status(200).send({
+                      widgets: widgets
+                  }); 
+                })
+                .catch(err => {
+                  res.status(500).send({ message: err.message });
+                });           
+          }else{
+            return res.status(404).send({
+                message: "screen not found with id " + req.params.screenId
+            });
+
+          } 
+        
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+    });
+  
   };
 
 exports.create =  (req, res) => {
-  // Save widget to Database
+  // intialize the Widget
   const widget = new Widget({
     name: req.body.name,
     imageName: req.file.originalname,
@@ -24,6 +41,7 @@ exports.create =  (req, res) => {
     key: req.file.key,
     contentType: req.file.mimetype
   });
+  //save the widget to Database
   widget.save()
     .then(widget => {
         //req.screenId

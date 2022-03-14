@@ -1,7 +1,7 @@
 const db = require("../models");
 const Solution = db.solution;
 checkSolutionExist = (req, res, next) => {
-  // Find user by Id
+  // Find solution by Id
   Solution.findByPk(req.params.solutionId)
   .then(solution => {
     if (solution) {
@@ -20,4 +20,5 @@ checkSolutionExist = (req, res, next) => {
 const verifySolution = {
     checkSolutionExist: checkSolutionExist
 };
+
 module.exports = verifySolution;

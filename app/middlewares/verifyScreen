@@ -1,7 +1,7 @@
 const db = require("../models");
 const Screen = db.screen;
 checkScreenExist = (req, res, next) => {
-  // Find user by Id
+  // Find screen by Id
   Screen.findByPk(req.params.screenId)
   .then(screen => {
     if (screen) {
@@ -20,4 +20,5 @@ checkScreenExist = (req, res, next) => {
 const verifyScreen = {
     checkScreenExist: checkScreenExist
 };
+
 module.exports = verifyScreen;

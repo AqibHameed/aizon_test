@@ -1,24 +1,40 @@
 const db = require("../models");
+const User = db.user
 const Solution = db.solution
 exports.index = (req, res) => {
-    // Save Solution to Database
-    Solution.findAll()
-      .then(solutions => {
-        res.status(200).send({
-            solutions: solutions
-         }); 
-      })
-      .catch(err => {
-        res.status(500).send({ message: err.message });
-      });
+    // Find the user from the Database
+    User.findOne({
+      where: {
+        id: req.userId
+      }
+    }).then(user => {
+      if (user) {
+            // Fetch solutions of the user
+            user.getSolutions().then(solutions => {
+                  res.status(200).send({
+                      solutions: solutions
+                  }); 
+                })
+                .catch(err => {
+                  res.status(500).send({ message: err.message });
+                });
+      }else{
+            res.status(400).send({
+              message: "Failed! User is not exist!"
+            });
+            return;
+      }
+    });
+
   };
 
 exports.create = (req, res) => {
-  // Save Solution to Database
+   // intialize the Solution
   const solution = new Solution({
     name: req.body.name,
     userId: req.userId
   });
+  //save the Solution to Database
   solution.save()
     .then(solution => {
        res.send({ message: "Solution was created successfully!",

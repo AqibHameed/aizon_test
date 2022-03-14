@@ -8,7 +8,7 @@ beforeAll(async() =>{
     where: { username: "aqib23" }
   });
 })
-describe.skip('POST /api/auth/signup', function() {
+describe('POST /api/auth/signup', function() {
   it('User is created', async () => {
     await request(app)
           .post('/api/auth/signup/')
@@ -78,7 +78,7 @@ describe.skip('POST /api/auth/signup', function() {
          });
   });
 
-describe.skip('POST /api/auth/signin/', function() {
+describe('POST /api/auth/signin/', function() {
   it('responds with json and should match with attributes ', async () => {
     await request(app)
           .post('/api/auth/signin/')

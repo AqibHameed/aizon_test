@@ -1,7 +1,7 @@
 const db = require("../models");
 const Widget = db.widget;
 checkWidgetExist = (req, res, next) => {
-  // Find user by Id
+  // Find widget by Id
   Widget.findByPk(req.params.widgetId)
   .then(widget => {
       if (widget) {
@@ -20,4 +20,5 @@ checkWidgetExist = (req, res, next) => {
 const verifyWidget = {
     checkWidgetExist: checkWidgetExist
 };
+
 module.exports = verifyWidget;

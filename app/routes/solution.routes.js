@@ -42,9 +42,10 @@ router.delete(
   ],
   controller.delete
 ); 
-//nest the routes
+//nest the routes for screens
 router.use('/:solutionId/screens', function(req, res, next) {
   req.solutionId = req.params.solutionId;
   next()
 }, screen);
+
  module.exports = router;

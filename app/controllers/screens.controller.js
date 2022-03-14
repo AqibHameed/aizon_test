@@ -1,25 +1,42 @@
 const db = require("../models");
+const Solution = db.solution
 const Screen = db.screen
 exports.index = (req, res) => {
-    // Save Screen to Database
-    Screen.findAll()
-      .then(screens => {
-        res.status(200).send({
-            screens: screens
-         }); 
-      })
-      .catch(err => {
+    // Find solution by Id
+    Solution.findByPk(req.solutionId)
+      .then(solution => {
+
+        if (solution) {
+                // Fetch screens of the solution
+                solution.getScreens()
+                .then(screens => {
+                  res.status(200).send({
+                      screens: screens
+                  }); 
+                })
+                .catch(err => {
+                  res.status(500).send({ message: err.message });
+                });
+        }else{
+              res.status(400).send({
+                message: "Failed! soultion not found with id!"
+              });
+              return;
+        }
+      }).catch(err => {
         res.status(500).send({ message: err.message });
       });
+
   };
 
 exports.create = (req, res) => {
-  // Save Screen to Database
+  // intialize the Screen
   const screen = new Screen({
     name: req.body.name,
     solutionId: req.body.solutionId
     //solutionId: req.solutionId
   });
+  //save the Screen to Database
   screen.save()
     .then(screen => {
        res.send({ message: "Screen is created successfully!",

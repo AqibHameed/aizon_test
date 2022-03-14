@@ -23,13 +23,21 @@ db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.solution = require("../models/solution.model.js")(sequelize, Sequelize);
 db.screen = require("../models/screen.model.js")(sequelize, Sequelize);
 db.widget = require("../models/widget.model.js")(sequelize, Sequelize);
-db.user.hasMany(db.solution, { });
+
+db.user.hasMany(db.solution, {
+  foreignKey: {name: "userId", allowNull: false}
+});
 db.solution.belongsTo(db.user, {
   foreignKey: {name: "userId", allowNull: false}
+});
+
+db.solution.hasMany(db.screen, {
+  foreignKey: {name: "solutionId", allowNull: false}
 });
 db.screen.belongsTo(db.solution, {
   foreignKey: {name: "solutionId", allowNull: false}
 });
+
 db.screen.belongsToMany(db.widget, {
   through: "screen_widgets",
   foreignKey: "screenId",
@@ -40,4 +48,5 @@ db.widget.belongsToMany(db.screen, {
   foreignKey: "widgetId",
   otherKey: "screenId"
 });
+
 module.exports = db;

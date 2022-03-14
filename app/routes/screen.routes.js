@@ -42,9 +42,10 @@ router.delete(
   ],
   controller.delete
 ); 
-//nest the routes
+//nest the routes for widget
 router.use('/:screenId/widgets', function(req, res, next) {
     req.screenId = req.params.screenId;
     next()
   }, widget);
- module.exports = router;
+
+module.exports = router;

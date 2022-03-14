@@ -75,7 +75,7 @@ describe('GET /api/screens/:screenId/widgets/', function() {
             .expect('Content-Type', /json/)
           
       });
-  });
+});
 
 describe('POST /api/screens/:screenId/widgets/', function() {
     it('UnAuthorized User', async () => {
@@ -93,7 +93,7 @@ describe('POST /api/screens/:screenId/widgets/', function() {
     
           });
         
-     });
+    });
     it('Widget is created', async () => {
       await request(app)
             .post('/api/screens/'+screenId+'/widgets/')
@@ -135,7 +135,6 @@ describe('GET /api/screens/:screenId/widgets/:widgetsId', function() {
         });
 
         it('Widget Id is not exist', async () => {
-          
           await request(app)
                 .get('/api/screens/'+screenId+'/widgets/'+1)
                 .set('Authorization', 'Bearer '+ token)
@@ -171,7 +170,6 @@ describe('PUT /api/screens/:screenId/widgets/:widgetsId', function() {
         });
 
         it('Widget Id is not exist', async () => {
-          
           await request(app)
                 .put('/api/screens/'+screenId+'/widgets/'+1)
                 .set('Authorization', 'Bearer '+ token)
@@ -186,6 +184,6 @@ describe('PUT /api/screens/:screenId/widgets/:widgetsId', function() {
           
                 });
               
-          });
+        });
         
-    });
+});

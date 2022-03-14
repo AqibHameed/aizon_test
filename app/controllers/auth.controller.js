@@ -5,12 +5,13 @@ const Op = db.Sequelize.Op;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 exports.signup = (req, res) => {
-  // Save User to Database
+  // intialize the User
   const user = new User({
     username: req.body.username,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8)
   });
+  //save the User to Database
   user.save()
     .then(user => {
        res.send({ message: "User was registered successfully!" }); 
@@ -20,6 +21,7 @@ exports.signup = (req, res) => {
     });
 };
 exports.signin = (req, res) => {
+  //check the user from the DB
   User.findOne({
     where: {
       username: req.body.username

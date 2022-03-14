@@ -21,4 +21,5 @@ checkUserexist = (req, res, next) => {
 const verifyUser = {
     checkUserexist: checkUserexist
 };
+
 module.exports = verifyUser;
